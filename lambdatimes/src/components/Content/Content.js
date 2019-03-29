@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import Tabs from './Tabs';
 import Cards from './Cards';
@@ -29,6 +29,7 @@ export default class Content extends Component {
   }
 
   changeSelected = tab => {
+    console.log("hii")
     // this function should take in the tab and update the state with the new tab.
     return (
       this.setState ({
