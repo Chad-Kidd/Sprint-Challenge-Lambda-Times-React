@@ -1,16 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const Tab = props => {
   /* Using your props, determine if the `tab` prop matches the `selectedTab` prop, 
       if they match, the className should be: 'tab active-tab', 
       if it is not it should just be 'tab'*/
         // if the selected tab is 'all' it should return all 
         // of the items from cardData
-      let className = props.tab === props.selectedTab ? 'tab active-tab' : 'tab';
+        let className = props.tab === props.selectedTab;
   return (
     <div
-      className={className}
+      className={`tab ${className} ? 'tab active-tab' : '' `}
       // selectedTabHandler somewhere??
       onClick={() => props.selectTabHandler(props.tab)}>
         {/* /* Replace this dummy click handler function with your selectTabHandler function from props 

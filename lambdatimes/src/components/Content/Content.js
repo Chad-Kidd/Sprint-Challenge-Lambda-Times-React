@@ -52,6 +52,7 @@ export default class Content extends Component {
         - else, it should only return those cards whose 'tab' matched this.state.selected.
     */
     if (this.state.selected === 'all') {
+      // had this.state.cards instead of this.state.selected should've used 20 minute rule
       return this.state.cards;
       // if the selected tab is 'all' it should return all 
       // of the items from cardData
@@ -59,10 +60,14 @@ export default class Content extends Component {
       return this.state.cards.filter(card => card.tab === this.state.selected)
       
     }
-    // else, it should only return those cards whose 'tab' matched this.state.selected
+     // else, it should only return those cards whose 'tab' matched this.state.selected
     // return filterCards();
     // invoke function
     // filterCards() invoked below in <Cards cards={this.filterCards()} />
+    
+    // terenary?
+    // (this.state.selected === 'all') ? this.state.cards: this.state.cards.filter(cards => cards.tab === this.state.selected)
+   
   };
 
   render() {
@@ -76,7 +81,7 @@ export default class Content extends Component {
         <Tabs 
         tabs={this.state.tabs} 
         selectedTab={this.state.selectedTab}
-        selectedTabHandler={this.state.changeSelected}
+        selectTabHandler={this.changeSelected}
         // selectTabHandler uses changeSelected function in this content.js file
         //come back to input function name that handles changes to selectedTab
         />
