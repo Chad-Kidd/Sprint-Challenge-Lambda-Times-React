@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Tabs from './Tabs';
 import Cards from './Cards';
@@ -11,19 +12,29 @@ export default class Content extends Component {
     super(props);
     this.state = {
       selected: 'all',
-      tabs: tabData,
+      tabs: [],
       //holds array of tabs from tabData in data.js
-      cards: cardData
+      cards: []
       //holds array of cards from cardData in data.js
+      // changed data to setState in componentDidMount()
     };
   }
 
   componentDidMount() {
     // Once the component has mounted, get the data and reflect that data on the state.
+    this.setState({
+      tabs: tabData,
+      cards: cardData
+    });
   }
 
   changeSelected = tab => {
     // this function should take in the tab and update the state with the new tab.
+    this.setState (
+      {
+        selected : tab
+      }
+    )
   };
 
   filterCards = () => {
@@ -65,7 +76,8 @@ export default class Content extends Component {
         <Tabs 
         tabs={this.state.tabs} 
         selectedTab={this.state.selectedTab}
-        // selecteTabHandler={this.state.}
+        selectedTabHandler={this.state.changeSelected}
+        // selectTabHandler uses changeSelected function in this content.js file
         //come back to input function name that handles changes to selectedTab
         />
         <Cards cards={this.filterCards()} />
