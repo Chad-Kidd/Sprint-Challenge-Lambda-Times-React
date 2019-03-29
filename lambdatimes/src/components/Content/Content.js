@@ -11,8 +11,10 @@ export default class Content extends Component {
     super(props);
     this.state = {
       selected: 'all',
-      tabs: [],
-      cards: []
+      tabs: tabData,
+      //holds array of tabs from tabData in data.js
+      cards: cardData
+      //holds array of cards from cardData in data.js
     };
   }
 
@@ -37,7 +39,19 @@ export default class Content extends Component {
           of the items from cardData. 
         - else, it should only return those cards whose 'tab' matched this.state.selected.
     */
-    return this.state.cards;
+    // return this.state.cards;
+    //cards is cardData
+    if (this.state.cards === 'all') {
+      return this.state.cards; 
+      // if the selected tab is 'all' it should return all 
+      // of the items from cardData
+    } else {
+     return this.state.cards.filter(card => card.tab === this.state.selected);
+    };
+    // else, it should only return those cards whose 'tab' matched this.state.selected
+    // return filterCards();
+    // invoke function
+    // filterCards() invoked below in <Cards cards={this.filterCards()} />
   };
 
   render() {
@@ -51,7 +65,7 @@ export default class Content extends Component {
         <Tabs 
         tabs={this.state.tabs} 
         selectedTab={this.state.selectedTab}
-        selecteTabHandler={this.state.}
+        // selecteTabHandler={this.state.}
         //come back to input function name that handles changes to selectedTab
         />
         <Cards cards={this.filterCards()} />
