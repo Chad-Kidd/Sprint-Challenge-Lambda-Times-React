@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
 
 import Tabs from './Tabs';
 import Cards from './Cards';
@@ -12,16 +13,30 @@ export default class Content extends Component {
     this.state = {
       selected: 'all',
       tabs: [],
+      //holds array of tabs from tabData in data.js
       cards: []
+      //holds array of cards from cardData in data.js
+      // changed data to setState in componentDidMount()
     };
   }
 
   componentDidMount() {
     // Once the component has mounted, get the data and reflect that data on the state.
+    this.setState({
+      tabs: tabData,
+      cards: cardData,
+    });
   }
 
   changeSelected = tab => {
+    console.log("hii")
     // this function should take in the tab and update the state with the new tab.
+    return (
+      this.setState ({
+        selected: tab
+        // just selected maybe?
+      }
+    ))
   };
 
   filterCards = () => {
@@ -37,7 +52,23 @@ export default class Content extends Component {
           of the items from cardData. 
         - else, it should only return those cards whose 'tab' matched this.state.selected.
     */
-    return this.state.cards;
+    if (this.state.selected === 'all') {
+      // had this.state.cards instead of this.state.selected should've used 20 minute rule
+      return this.state.cards;
+      // if the selected tab is 'all' it should return all 
+      // of the items from cardData
+    } else {
+      return this.state.cards.filter(card => card.tab === this.state.selected)
+      
+    }
+     // else, it should only return those cards whose 'tab' matched this.state.selected
+    // return filterCards();
+    // invoke function
+    // filterCards() invoked below in <Cards cards={this.filterCards()} />
+    
+    // terenary?
+    // (this.state.selected === 'all') ? this.state.cards: this.state.cards.filter(cards => cards.tab === this.state.selected)
+   
   };
 
   render() {
@@ -48,7 +79,13 @@ export default class Content extends Component {
           `selectedTab` that includes the currently selected tab
           and `selectTabHandler` that includes the function to change the selected tab
         */}
-        <Tabs tabs={this.state.tabs} />
+        <Tabs 
+        tabs={this.state.tabs} 
+        selectedTab={this.state.selectedTab}
+        selectTabHandler={this.changeSelected}
+        // selectTabHandler uses changeSelected function in this content.js file
+        //come back to input function name that handles changes to selectedTab
+        />
         <Cards cards={this.filterCards()} />
       </div>
     );
